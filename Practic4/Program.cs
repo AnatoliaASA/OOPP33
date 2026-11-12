@@ -34,6 +34,10 @@ namespace RectangleApp
         {
             return 2 * (width + height);
         }
+        public bool IsSquare()
+        {
+            return width == height;
+        }
     }
 
     class Program
@@ -67,7 +71,7 @@ namespace RectangleApp
                 Console.WriteLine($"  Висота:   {r.Height:F2}");
                 Console.WriteLine($"  Площа:    {r.GetArea():F2}");
                 Console.WriteLine($"  Периметр: {r.GetPerimeter():F2}");
-                Console.WriteLine();
+                Console.WriteLine($"  Це квадрат: {r.IsSquare()}");
             }
 
             Console.ReadKey();
