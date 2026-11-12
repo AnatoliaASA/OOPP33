@@ -28,6 +28,11 @@ namespace PointApp
             this.x = x;
             this.y = y;
         }
+        public Point(Point other)
+        {
+            x = other.x;
+            y = other.y;
+        }
         
         public void ShowInfo()
         {
@@ -62,6 +67,20 @@ namespace PointApp
                 Console.WriteLine($"Відстань до початку координат: {points[i].DistanceToOrigin():F2}");
                 Console.WriteLine();
             }
+            Console.WriteLine("=== Конструктор копіювання ===");
+            Point copy = new Point(p1);  
+            Console.WriteLine("Оригінал p1:");
+            p1.ShowInfo();
+            Console.WriteLine("Копія copy:");
+            copy.ShowInfo();
+
+            copy.X = 100;
+            copy.Y = 100;
+            Console.WriteLine("\nПісля зміни copy.X = 100, copy.Y = 100:");
+            Console.WriteLine("Оригінал p1:");
+            p1.ShowInfo();
+            Console.WriteLine("Копія copy:");
+            copy.ShowInfo();
 
             Console.ReadKey();
         }
