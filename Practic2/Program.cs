@@ -10,29 +10,49 @@ namespace PointApp
         public double X
         {
             get { return x; }
-            set { x = value; }
+            set
+            {
+                if (double.IsNaN(value) || double.IsInfinity(value))
+                {
+                    Console.WriteLine("Помилка: координата X має бути скінченним числом. Значення не змінено.");
+                }
+                else
+                {
+                    x = value;
+                }
+            }
         }
 
         public double Y
         {
             get { return y; }
-            set { y = value; }
+            set
+            {
+                if (double.IsNaN(value) || double.IsInfinity(value))
+                {
+                    Console.WriteLine("Помилка: координата Y має бути скінченним числом. Значення не змінено.");
+                }
+                else
+                {
+                    y = value;
+                }
+            }
         }
 
         public Point(double x, double y)
         {
-            this.x = x;
-            this.y = y;
+            X = x;
+            Y = y;
         }
 
         public void ShowInfo()
         {
-            Console.WriteLine($"Координати точки: ({x}; {y})");
+            Console.WriteLine($"Координати точки: ({X}; {Y})");
         }
 
         public double DistanceToOrigin()
         {
-            return Math.Sqrt(x * x + y * y);
+            return Math.Sqrt(X * X + Y * Y);
         }
     }
 
@@ -40,6 +60,8 @@ namespace PointApp
     {
         static void Main(string[] args)
         {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+
             Point p1 = new Point(3, 4);
             Point p2 = new Point(-5.5, 2.2);
             Point p3 = new Point(0, -7);
@@ -53,6 +75,13 @@ namespace PointApp
                 Console.WriteLine($"Відстань до початку координат: {points[i].DistanceToOrigin():F2}");
                 Console.WriteLine();
             }
+            //Домашнє завдання
+            Console.WriteLine("Спроба встановити некоректне значення X для точки 1:");
+            p1.X = double.NaN;
+
+            Console.WriteLine("\nСтан точки 1 після спроби зміни:");
+            p1.ShowInfo();
+            Console.WriteLine($"Відстань до початку координат: {p1.DistanceToOrigin():F2}");
 
             Console.ReadKey();
         }
