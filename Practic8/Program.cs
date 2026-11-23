@@ -18,6 +18,22 @@ namespace OOP_Lesson8
         }
     }
 
+    class Student
+    {
+        public string Name;
+        public double AverageGrade;
+
+        public Student(string name, double averageGrade)
+        {
+            Name = name;
+            AverageGrade = averageGrade;
+        }
+
+        public void ShowInfo()
+        {
+            Console.WriteLine($"Студент: {Name}, середній бал: {AverageGrade}");
+        }
+    }
     class Program
     {
         static double ReadDouble(string message)
@@ -56,6 +72,34 @@ namespace OOP_Lesson8
 
             Console.WriteLine("\n--- Прямокутник з найбільшою площею ---");
             largest.ShowInfo();
+
+            Student[] students = new Student[]
+            {
+                new Student("Олександр", 4.5),
+                new Student("Марія", 5.0),
+                new Student("Іван", 3.8),
+                new Student("Олена", 4.2),
+                new Student("Андрій", 4.9)
+            };
+
+            for (int i = 0; i < students.Length - 1; i++)
+            {
+                for (int j = 0; j < students.Length - 1 - i; j++)
+                {
+                    if (students[j].AverageGrade < students[j + 1].AverageGrade)
+                    {
+                        Student temp = students[j];
+                        students[j] = students[j + 1];
+                        students[j + 1] = temp;
+                    }
+                }
+            }
+
+            Console.WriteLine("\n--- Студенти за спаданням середнього балу ---");
+            foreach (Student student in students)
+            {
+                student.ShowInfo();
+            }
 
             Console.WriteLine("\nНатисніть будь-яку клавішу для виходу...");
             Console.ReadKey();
