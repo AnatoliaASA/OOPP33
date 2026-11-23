@@ -1,47 +1,62 @@
 ﻿using System;
 
-namespace PointApp
+namespace OOP_Lesson9
 {
     class Point
     {
-        private double x;
-        private double y;
+        public int X;
+        public int Y;
 
-        public double X
+        public Point(int x, int y)
         {
-            get { return x; }
-            set { x = value; }
+            X = x;
+            Y = y;
         }
 
-        public double Y
+        public static Point operator +(Point a, Point b)
         {
-            get { return y; }
-            set { y = value; }
+            return new Point(a.X + b.X, a.Y + b.Y);
         }
-         public Point()
+
+        public static bool operator ==(Point a, Point b)
         {
-            x = 0;
-            y = 0;
+            if (ReferenceEquals(a, null) || ReferenceEquals(b, null))
+            {
+                return ReferenceEquals(a, b);
+            }
+            return a.X == b.X && a.Y == b.Y;
         }
-        public Point(double x, double y)
+
+        public static bool operator !=(Point a, Point b)
         {
-            this.x = x;
-            this.y = y;
+            return !(a == b);
         }
-        public Point(Point other)
+
+        public override bool Equals(object obj)
         {
-            x = other.x;
-            y = other.y;
+            Point other = obj as Point;
+            return !ReferenceEquals(other, null) && this == other;
         }
-        
+
+        public override int GetHashCode()
+        {
+            return X * 31 + Y;
+        }
+
+
+        public static Point operator *(Point p, int k)
+        {
+            return new Point(p.X * k, p.Y * k);
+        }
+
+        public static Point operator *(int k, Point p)
+        {
+            return new Point(p.X * k, p.Y * k);
+        }
+
         public void ShowInfo()
         {
-            Console.WriteLine($"Координати точки: ({x}; {y})");
-        }
-
-        public double DistanceToOrigin()
-        {
-            return Math.Sqrt(x * x + y * y);
+            Console.WriteLine($"Точка: ({X}; {Y})");
         }
     }
 
@@ -49,39 +64,36 @@ namespace PointApp
     {
         static void Main(string[] args)
         {
-            Point p0 = new Point();
-            Console.WriteLine("Точка, створена без параметрів:");
-            p0.ShowInfo();
-            Console.WriteLine();
-            
-            Point p1 = new Point(3, 4);
-            Point p2 = new Point(-5.5, 2.2);
-            Point p3 = new Point(0, -7);
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-            Point[] points = { p1, p2, p3 };
+            Point p1 = new Point(2, 3);
+            Point p2 = new Point(4, 5);
+            Point p3 = new Point(2, 3);
 
-            for (int i = 0; i < points.Length; i++)
-            {
-                Console.WriteLine($"Точка {i + 1}:");
-                points[i].ShowInfo();
-                Console.WriteLine($"Відстань до початку координат: {points[i].DistanceToOrigin():F2}");
-                Console.WriteLine();
-            }
-            Console.WriteLine("=== Конструктор копіювання ===");
-            Point copy = new Point(p1);  
-            Console.WriteLine("Оригінал p1:");
+            Console.WriteLine("--- Точки ---");
             p1.ShowInfo();
-            Console.WriteLine("Копія copy:");
-            copy.ShowInfo();
+            p2.ShowInfo();
+            p3.ShowInfo();
 
-            copy.X = 100;
-            copy.Y = 100;
-            Console.WriteLine("\nПісля зміни copy.X = 100, copy.Y = 100:");
-            Console.WriteLine("Оригінал p1:");
-            p1.ShowInfo();
-            Console.WriteLine("Копія copy:");
-            copy.ShowInfo();
+            Console.WriteLine("\n--- Додавання (p1 + p2) ---");
+            Point sum = p1 + p2;
+            sum.ShowInfo();
 
+            Console.WriteLine("\n--- Порівняння ---");
+            Console.WriteLine($"p1 == p2: {p1 == p2}");
+            Console.WriteLine($"p1 == p3: {p1 == p3}");
+            Console.WriteLine($"p1 != p2: {p1 != p2}");
+            Console.WriteLine($"p1 != p3: {p1 != p3}");
+
+            Console.WriteLine("\n--- Множення на число ---");
+            Point mult1 = p1 * 3;
+            Point mult2 = 2 * p2;
+            Console.Write("p1 * 3 -> ");
+            mult1.ShowInfo();
+            Console.Write("2 * p2 -> ");
+            mult2.ShowInfo();
+
+            Console.WriteLine("\nНатисніть будь-яку клавішу для виходу...");
             Console.ReadKey();
         }
     }
