@@ -1,12 +1,10 @@
 ﻿
 using System;
 
-class Shape
+abstract class Shape
 {
-    public virtual double GetArea()
-    {
-        return 0;
-    }
+    public abstract double GetArea();
+    public abstract double GetPerimeter();
 }
 
 class Circle : Shape
@@ -21,6 +19,11 @@ class Circle : Shape
     public override double GetArea()
     {
         return Math.PI * Radius * Radius;
+    }
+
+    public override double GetPerimeter()
+    {
+        return 2 * Math.PI * Radius;
     }
 }
 
@@ -39,6 +42,11 @@ class Rectangle : Shape
     {
         return Width * Height;
     }
+
+    public override double GetPerimeter()
+    {
+        return 2 * (Width + Height);
+    }
 }
 
 class Triangle : Shape
@@ -56,6 +64,15 @@ class Triangle : Shape
     {
         return Base * Height / 2;
     }
+
+    public override double GetPerimeter()
+    {
+        double side = Math.Sqrt(
+            (Base / 2) * (Base / 2) + Height * Height
+        );
+
+        return Base + 2 * side;
+    }
 }
 
 class Program
@@ -66,8 +83,16 @@ class Program
         Rectangle rectangle = new Rectangle(4, 6);
         Triangle triangle = new Triangle(8, 6);
 
-        Console.WriteLine("Площа кола: " + circle.GetArea());
-        Console.WriteLine("Площа прямокутника: " + rectangle.GetArea());
-        Console.WriteLine("Площа трикутника: " + triangle.GetArea());
+        Console.WriteLine("Коло:");
+        Console.WriteLine("Площа: " + circle.GetArea());
+        Console.WriteLine("Периметр: " + circle.GetPerimeter());
+
+        Console.WriteLine("\nПрямокутник:");
+        Console.WriteLine("Площа: " + rectangle.GetArea());
+        Console.WriteLine("Периметр: " + rectangle.GetPerimeter());
+
+        Console.WriteLine("\nТрикутник:");
+        Console.WriteLine("Площа: " + triangle.GetArea());
+        Console.WriteLine("Периметр: " + triangle.GetPerimeter());
     }
 }
