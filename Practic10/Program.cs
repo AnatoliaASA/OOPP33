@@ -12,7 +12,7 @@ class Person
         Age = age;
     }
 
-    public void ShowInfo()
+    public virtual void ShowInfo()
     {
         Console.WriteLine("Ім'я: " + Name);
         Console.WriteLine("Вік: " + Age);
@@ -31,31 +31,11 @@ class Student : Person
         Course = course;
     }
 
-    public void ShowStudentInfo()
+    public override void ShowInfo()
     {
-        ShowInfo();
+        base.ShowInfo();
         Console.WriteLine("Факультет: " + Faculty);
         Console.WriteLine("Курс: " + Course);
-    }
-}
-
-class Teacher : Person
-{
-    public string Department;
-    public double Salary;
-
-    public Teacher(string name, int age, string department, double salary)
-        : base(name, age)
-    {
-        Department = department;
-        Salary = salary;
-    }
-
-    public void ShowTeacherInfo()
-    {
-        ShowInfo();
-        Console.WriteLine("Кафедра: " + Department);
-        Console.WriteLine("Заробітна плата: " + Salary + " грн");
     }
 }
 
@@ -63,23 +43,21 @@ class Program
 {
     static void Main()
     {
-        Person person = new Person("Олександр", 35);
+        Console.Write("Введіть ім'я: ");
+        string name = Console.ReadLine();
 
-        Student student = new Student(
-            "Денис", 18, "Комп'ютерних наук", 2
-        );
+        Console.Write("Введіть вік: ");
+        int age = Convert.ToInt32(Console.ReadLine());
 
-        Teacher teacher = new Teacher(
-            "Іван", 45, "Інформатики", 5000
-        );
+        Console.Write("Введіть факультет: ");
+        string faculty = Console.ReadLine();
 
-        Console.WriteLine("Інформація про персону:");
-        person.ShowInfo();
+        Console.Write("Введіть курс: ");
+        int course = Convert.ToInt32(Console.ReadLine());
+
+        Student student = new Student(name, age, faculty, course);
 
         Console.WriteLine("\nІнформація про студента:");
-        student.ShowStudentInfo();
-
-        Console.WriteLine("\nІнформація про викладача:");
-        teacher.ShowTeacherInfo();
+        student.ShowInfo();
     }
 }
