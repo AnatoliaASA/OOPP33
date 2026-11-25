@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 
 abstract class Shape
 {
@@ -35,8 +34,8 @@ class Circle : Shape
 
 class Rectangle : Shape
 {
-    public double Width;
-    public double Height;
+    public double Width { get; set; }
+    public double Height { get; set; }
 
     public Rectangle(double width, double height)
     {
@@ -57,6 +56,22 @@ class Rectangle : Shape
 
 class Program
 {
+    static void CheckObject(object obj)
+    {
+        if (obj is Circle)
+        {
+            Console.WriteLine("Об'єкт є колом.");
+        }
+        else if (obj is Rectangle)
+        {
+            Console.WriteLine("Об'єкт є прямокутником.");
+        }
+        else
+        {
+            Console.WriteLine("Об'єкт належить до іншого класу.");
+        }
+    }
+
     static void Main()
     {
         Shape[] shapes =
@@ -75,11 +90,17 @@ class Program
             }
         }
 
-        Console.WriteLine("\nПлощі фігур після зміни радіуса:");
+        Console.WriteLine("\nПлощі фігур:");
 
         foreach (Shape shape in shapes)
         {
             Console.WriteLine(shape.GetArea());
         }
+
+        Console.WriteLine("\nПеревірка типів об'єктів:");
+
+        CheckObject(new Circle(5));
+        CheckObject(new Rectangle(4, 6));
+        CheckObject("Hello");
     }
 }
