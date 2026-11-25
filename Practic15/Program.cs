@@ -55,7 +55,7 @@ class Program
     {
         Shape[] shapes =
         {
-            new Circle(6),
+            new Circle(5),
             new Circle(3),
             new Rectangle(4, 6),
             new Rectangle(3, 7)
@@ -67,5 +67,15 @@ class Program
         {
             Console.WriteLine(shape.GetArea());
         }
+
+        double totalPerimeter = 0;
+
+        foreach (Shape shape in shapes)
+        {
+            totalPerimeter += shape.GetPerimeter();
+        }
+
+        Console.WriteLine("\nЗагальний периметр усіх фігур: "
+            + totalPerimeter);
     }
 }
