@@ -9,7 +9,7 @@ abstract class Shape
 
 class Circle : Shape
 {
-    public double Radius;
+    public double Radius { get; set; }
 
     public Circle(double radius)
     {
@@ -24,6 +24,12 @@ class Circle : Shape
     public override double GetPerimeter()
     {
         return 2 * Math.PI * Radius;
+    }
+
+    public void ChangeRadius(double newRadius)
+    {
+        Radius = newRadius;
+        Console.WriteLine($"Новий радіус кола: {Radius}");
     }
 }
 
@@ -56,26 +62,24 @@ class Program
         Shape[] shapes =
         {
             new Circle(5),
-            new Circle(3),
             new Rectangle(4, 6),
+            new Circle(3),
             new Rectangle(3, 7)
         };
 
-        Console.WriteLine("Площі геометричних фігур:");
+        foreach (Shape shape in shapes)
+        {
+            if (shape is Circle circle)
+            {
+                circle.ChangeRadius(10);
+            }
+        }
+
+        Console.WriteLine("\nПлощі фігур після зміни радіуса:");
 
         foreach (Shape shape in shapes)
         {
             Console.WriteLine(shape.GetArea());
         }
-
-        double totalPerimeter = 0;
-
-        foreach (Shape shape in shapes)
-        {
-            totalPerimeter += shape.GetPerimeter();
-        }
-
-        Console.WriteLine("\nЗагальний периметр усіх фігур: "
-            + totalPerimeter);
     }
 }
