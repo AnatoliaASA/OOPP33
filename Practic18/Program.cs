@@ -5,12 +5,17 @@ interface IDrawable
     void Draw();
 }
 
-class Point : IDrawable
+interface IScalable
 {
-    public int X { get; set; }
-    public int Y { get; set; }
+    void Scale(double factor);
+}
 
-    public Point(int x, int y)
+class Point : IDrawable, IScalable
+{
+    public double X { get; set; }
+    public double Y { get; set; }
+
+    public Point(double x, double y)
     {
         X = x;
         Y = y;
@@ -18,11 +23,17 @@ class Point : IDrawable
 
     public void Draw()
     {
-        Console.WriteLine($"Малювання точки з координатами ({X}, {Y})");
+        Console.WriteLine($"Точка: ({X}, {Y})");
+    }
+
+    public void Scale(double factor)
+    {
+        X *= factor;
+        Y *= factor;
     }
 }
 
-class Circle : IDrawable
+class Circle : IDrawable, IScalable
 {
     public double Radius { get; set; }
 
@@ -33,7 +44,12 @@ class Circle : IDrawable
 
     public void Draw()
     {
-        Console.WriteLine($"Малювання кола з радіусом {Radius}");
+        Console.WriteLine($"Коло з радіусом {Radius}");
+    }
+
+    public void Scale(double factor)
+    {
+        Radius *= factor;
     }
 }
 
@@ -42,7 +58,17 @@ class Program
     static void Main()
     {
         Point point = new Point(5, 10);
-        Circle circle = new Circle(7);
+        Circle circle = new Circle(4);
+
+        Console.WriteLine("Початкові розміри:");
+
+        point.Draw();
+        circle.Draw();
+
+        point.Scale(2);
+        circle.Scale(2);
+
+        Console.WriteLine("\nПісля масштабування:");
 
         point.Draw();
         circle.Draw();
