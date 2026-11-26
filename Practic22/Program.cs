@@ -11,21 +11,10 @@ struct StructPoint
         Y = y;
     }
 
-    public void ShowInfo()
+    public StructPoint()
     {
-        Console.WriteLine($"X = {X}, Y = {Y}");
-    }
-}
-
-class Point
-{
-    public int X;
-    public int Y;
-
-    public Point(int x, int y)
-    {
-        X = x;
-        Y = y;
+        X = 0;
+        Y = 0;
     }
 
     public void ShowInfo()
@@ -39,27 +28,12 @@ class Program
     static void Main()
     {
         StructPoint point1 = new StructPoint(5, 10);
-        StructPoint point2 = point1;
+        StructPoint point2 = new StructPoint();
 
-        point2.X = 20;
-
-        Console.WriteLine("Структури:");
-        Console.Write("Перша точка: ");
+        Console.WriteLine("Точка з параметрами:");
         point1.ShowInfo();
 
-        Console.Write("Друга точка: ");
+        Console.WriteLine("\nТочка без параметрів:");
         point2.ShowInfo();
-
-        Point classPoint1 = new Point(5, 10);
-        Point classPoint2 = classPoint1;
-
-        classPoint2.X = 20;
-
-        Console.WriteLine("\nКласи:");
-        Console.Write("Перша точка: ");
-        classPoint1.ShowInfo();
-
-        Console.Write("Друга точка: ");
-        classPoint2.ShowInfo();
     }
 }
