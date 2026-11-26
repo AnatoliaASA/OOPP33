@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 class Student : IComparable<Student>
 {
@@ -16,7 +17,9 @@ class Student : IComparable<Student>
         if (other == null)
             return 1;
 
-        return AverageGrade.CompareTo(other.AverageGrade);
+        return StringComparer.Create(
+            new CultureInfo("uk-UA"), true
+        ).Compare(Name, other.Name);
     }
 
     public void ShowInfo()
@@ -46,7 +49,7 @@ class Program
 
         Array.Sort(students);
 
-        Console.WriteLine("\nПісля сортування за середнім балом:");
+        Console.WriteLine("\nПісля сортування за алфавітом:");
 
         foreach (Student student in students)
         {
